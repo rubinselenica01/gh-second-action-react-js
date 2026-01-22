@@ -1,0 +1,37 @@
+name: Deploy Project
+on: push
+jobs:
+  test: 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v6
+        # NodeJS is pre installed on ubuntu runner so it is not needed
+        # Just for step by step to get used to it
+      - name: Install NodeJS
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: npm ci #Safer than npm install
+      - name: Run tests
+        run: npm test
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v6
+        # NodeJS is pre installed on ubuntu runner so it is not needed
+        # Just for step by step to get used to it
+      - name: Install NodeJS
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: npm ci #Safer than npm install
+      - name: Build project
+        run: npm run build
+      - name: Deploy
+        run: echo "Deploying..."
+
+        
